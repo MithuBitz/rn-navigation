@@ -1,10 +1,17 @@
 import { Button, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = ({ route }: any) => {
   const navigation = useNavigation<any>();
   const { username } = route.params;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "Mithu",
+    });
+  }, [navigation]);
+
   return (
     <View>
       <Text>{username}</Text>
