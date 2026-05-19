@@ -1,47 +1,62 @@
 import * as React from "react";
 import { Text, View } from "react-native";
-import {
-  createStaticNavigation,
-  useNavigation,
-} from "@react-navigation/native";
-import { Button } from "@react-navigation/elements";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import DynamicTabNavigator from "./src/navigator/tabs/DynamicTabNavigator";
+
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+const Tab = createMaterialTopTabNavigator();
 
 function HomeScreen() {
-  const navigation = useNavigation();
-
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Text>Home Screen</Text>
-      <Button onPress={() => navigation.navigate("Profile")}>
-        Go to Profile
-      </Button>
-    </View>
+    </SafeAreaView>
+  );
+}
+
+function ReelsScreen() {
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text>Reels Screen</Text>
+    </SafeAreaView>
   );
 }
 
 function ProfileScreen() {
-  const navigation = useNavigation();
-
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Text>Profile Screen</Text>
-      <Button onPress={() => navigation.navigate("Home")}>Go to Home</Button>
-    </View>
+    </SafeAreaView>
   );
 }
 
-const MyTabs = createBottomTabNavigator({
-  screens: {
-    Home: HomeScreen,
-    Profile: ProfileScreen,
-  },
-});
-
-const Navigation = createStaticNavigation(MyTabs);
-
 export default function App() {
-  // return <Navigation />; // Static bottom tab
-  return <DynamicTabNavigator />; // Dynamiv bottom tab
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Reels" component={ReelsScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }
