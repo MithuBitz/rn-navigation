@@ -5,28 +5,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Ionicons } from "@expo/vector-icons";
+import SearchScreen from "../../screens/SearchScreen";
+import ProfileScreen from "../../screens/ProfileScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeScreen from "../../screens/HomeScreen";
+import DetailScreen from "../../screens/DetailScreen";
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home</Text>
-    </View>
-  );
-}
+const HomeStack = createNativeStackNavigator();
 
-function SearchScreen() {
+function HomeStackScreen() {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Search</Text>
-    </View>
-  );
-}
-
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Profile</Text>
-    </View>
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="Details" component={DetailScreen} />
+    </HomeStack.Navigator>
   );
 }
 
@@ -34,40 +26,14 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator
-      initialRouteName="Search"
-      screenOptions={({ route }) => ({
-        tabBarStyle: {
-          height: 70,
-          paddingBottom: 8,
-        },
-        tabBarActiveTintColor: "tomato",
-        tabBarInactiveTintColor: "gray",
-        tabBarIcon: ({ focused, color, size }) => {
-          const icon =
-            route.name === "Home"
-              ? focused
-                ? "home"
-                : "home-outline"
-              : route.name === "Search"
-                ? focused
-                  ? "search"
-                  : "search-outline"
-                : focused
-                  ? "person"
-                  : "person-outline";
-
-          return <Ionicons name={icon} size={size} color={color} />;
-        },
-      })}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Search" component={SearchScreen} />
+    <Tab.Navigator>
       <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{ tabBarBadge: 3 }}
+        name="Overview"
+        component={HomeStackScreen}
+        options={{ headerShown: false }}
       />
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
