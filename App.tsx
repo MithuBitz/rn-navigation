@@ -37,7 +37,7 @@ function ReelsScreen() {
 
 function ProfileScreen() {
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         justifyContent: "center",
@@ -45,7 +45,7 @@ function ProfileScreen() {
       }}
     >
       <Text>Profile Screen</Text>
-    </SafeAreaView>
+    </View>
   );
 }
 
